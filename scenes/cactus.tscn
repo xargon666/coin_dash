@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://mx1mh0i73bpu"]
+
+[ext_resource type="Script" uid="uid://d3t8tj3oiep3" path="res://scenes/cactus.gd" id="1_3uwn4"]
+[ext_resource type="Texture2D" uid="uid://u6b4h1hgeb05" path="res://assets/cactus.png" id="1_fy5iu"]
+
+[node name="Cactus" type="Area2D" groups=["obstacles"]]
+script = ExtResource("1_3uwn4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_fy5iu")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-7, 13)
+scale = Vector2(1, 2.45)
+polygon = PackedVector2Array(22, -0.408163, 23, -9.79592, 22, -12.6531, 18, -14.6939, 6, -14.6939, -2, -13.8775, -10, -12.2449, -10, -6.32653, -5, 6.93878, 16, 6.53061)
+
+[node name="ActivateTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+autostart = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="ActivateTimer" to="." method="_on_activate_timer_timeout"]
