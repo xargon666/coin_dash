@@ -110,12 +110,13 @@ func game_over():
 	$EndSound.play()
 	playing = false
 	$GameTimer.stop()
-	get_tree().call_group("coins","queue_free")
+	$PowerupTimer.stop()
 	$HUD.show_game_over()
 	$Player.die()
 	$DeathAnimationTimer.start()
 	await $DeathAnimationTimer.timeout
 	$Player.hide()
+	clear_junk()
 
 func _on_hud_start_game():
 	print("start_game_emit")
@@ -134,4 +135,4 @@ func spawn_powerup():
 
 func _input(event):
 	if event.is_action_pressed("debug_newgame"):
-		next_level()
+		print($Player.position)

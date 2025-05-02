@@ -13,8 +13,8 @@ func _process(delta: float) -> void:
 	position += vel * speed * delta
 	
 	# Prevent player from leaving screen edge
-	position.x = clamp(position.x,0,screensize.x)
-	position.y = clamp(position.y,0,screensize.y)
+	#position.x = clamp(position.x,0,screensize.x)
+	#position.y = clamp(position.y,0,screensize.y)
 	
 	# Animations
 	if vel.length() > 0:
@@ -25,6 +25,16 @@ func _process(delta: float) -> void:
 	# Flip sprite
 	if vel.x != 0:
 		spr.flip_h = vel.x < 0
+	
+	# Screen Wrap
+	if position.x > screensize.x:
+		position.x = 0
+	if position.x < 0:
+		position.x = screensize.x
+	if position.y > screensize.y:
+		position.y = 0
+	if position.y < 0:
+		position.y = screensize.y
 
 func start():
 	print("player start")
