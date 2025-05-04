@@ -4,6 +4,8 @@ var screensize = Vector2.ZERO
 var active = false
 @export var width = 30
 
+signal respawn_coin
+
 func _ready():
 	$AnimatedSprite2D.frame = randi() % 5
 	$AnimatedSprite2D.hide()
@@ -19,12 +21,16 @@ func pickup() -> void:
 
 func remove_coin():
 	queue_free()
-	
+
 func _on_area_entered(area: Area2D) -> void:
-	if area.is_in_group("obstacles") or area.is_in_group("no_spawn"):
-		if active == false:
-			position = Vector2(randi_range(width,screensize.x - width),
-			randi_range(width,screensize.y - width))
+	if area.is_in_group("obstacles"):
+		print("coin spawned in cactus")
+		remove_coin()
+		respawn_coin.emit()
+	if area.is_in_group("no_spawn") and active == false:
+		print("coin spawned in no spawn area")
+		remove_coin()
+		respawn_coin.emit()
 
 func _on_active_timer_timeout() -> void:
 	active = true

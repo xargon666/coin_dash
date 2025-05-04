@@ -69,16 +69,20 @@ func clear_junk():
 
 func spawn_coins():
 	for i in level + 4:
-		var c = coin_scene.instantiate()
-		add_child(c)
-		c.screensize = screensize
-		c.position = Vector2(randi_range($Coin.width,screensize.x - $Coin.width),
-		randi_range($Coin.width,screensize.y - $Coin.width))
+		spawn_coin()
+
+func spawn_coin():
+	var c = coin_scene.instantiate()
+	add_child(c)
+	c.screensize = screensize
+	c.position = Vector2(randi_range($Coin.width,screensize.x - $Coin.width),
+	randi_range($Coin.width,screensize.y - $Coin.width))
+
+func _on_coin_respawn_coin():
+	print("respawn coin!")
+	spawn_coin()
 
 func spawn_cactus():
-	#print("Cactus Count: " + str(cactus_count))
-	#var new_cactus_count = cactus_count - get_tree().get_nodes_in_group("obstacles").size()
-	#for i in new_cactus_count:
 	var c = cactus_scene.instantiate()
 	add_child(c)
 	c.screensize = screensize
@@ -87,7 +91,6 @@ func spawn_cactus():
 
 func _on_game_timer_timeout():
 	time_left -= 1
-	#print("time left: " + str(time_left))
 	$HUD.update_timer(time_left)
 	if time_left <= 0:
 		game_over()
@@ -135,4 +138,4 @@ func spawn_powerup():
 
 func _input(event):
 	if event.is_action_pressed("debug_newgame"):
-		print($Player.position)
+		next_level()

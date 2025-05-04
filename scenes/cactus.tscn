@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://u6b4h1hgeb05" path="res://assets/cactus.png" id="1_fy5iu"]
 
 [node name="Cactus" type="Area2D" groups=["obstacles"]]
+scale = Vector2(1.5, 1.5)
 script = ExtResource("1_3uwn4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
